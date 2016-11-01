@@ -1,0 +1,9 @@
+{>"layout"/}
+
+{<content}
+  <h2>Error</h2>
+  <div>
+    This system is an experimental system and has encountered an error,
+    please refresh to see if the issue is fixed.
+  </div>
+{/content}

@@ -1,0 +1,27 @@
+<form id="loginForm" class="pure-form login">
+  <div class="form-group">
+    <h3>Login <span id="logMsg"></span></h3>
+    <label for="username">Username</label>
+    <input type="text" id="username" />
+    <label for="pwd">Password</label>
+    <input type="password" id="pwd" />
+    <input type="submit" class="pure-button pure-button-primary" value="LOGIN"/>
+    <button id="signup" class="pure-button btn-red"> Sign Up </button>
+  </div>
+</form>
+
+<form id="registerForm" class="pure-form registration">
+  <div class="form-group">
+    <h3>Register <span id="regMsg"></span></h3>
+    <label for="username">Username</label>
+    <input type="text" id="regUsername" />
+    <label for="email">Email</label>
+    <input type="email" id="regEmail" />
+    <label for="pwd">Password</label>
+    <input type="password" id="regPwd" />
+    <label for="repwd">Retype Password</label>
+    <input type="password" id="repwd" />
+    <input type="submit" class="pure-button pure-button-primary" value="REGISTER"/>
+    <button id="regCancel" class="pure-button btn-red"> Cancel </button>
+  </div>
+</form>

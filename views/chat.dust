@@ -1,0 +1,41 @@
+{>"layout"/}
+
+{<content}
+<div id="chat">
+{#chats}
+  <div class="post" id="{id}">
+    <div class="row"><div class="cell">
+        <span class="user">{username}</span>
+      </div><div class="cell large">
+        <span class="ts">{Timestamp}</span>
+        <br/>
+        <span class="msg">{Verbiage}</span>
+      </div>
+      {@eq key=user value=username}
+        <div class="cell controls">
+          <button class="deletePost" value="{id}"> X </button>
+        </div>
+      {/eq}
+      {@eq key=user value="Hisself"}
+        <div class="cell controls">
+          <button class="masterDeletePost" value="{id}"> X </button>
+        </div>
+      {/eq}
+    </div>
+  </div>
+{/chats}
+</div>
+<div class="users">
+  <h3>Users</h3>
+  <ul id="users"></ul>
+</div>
+<div class="base-form">
+  {>login/}
+  <form id="msgForm" class="pure-form">
+    <textarea class="form-control" id="msg" placeholder="Message"></textarea>
+    <br/>
+    <br/>
+    <input type="submit" class="pure-button pure-button-primary" value="Send Message"/>
+  </form>
+</div>
+{/content}

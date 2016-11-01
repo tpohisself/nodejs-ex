@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Patriot Radio Chat</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="/css/master.css" media="screen" />
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <h3>Patriot Radio Chat</h3>
+        <nav>
+          {?user}
+          <ul>
+            <li>Welcome <span id="user">{user}</span></li>
+            <li> &nbsp; </li>
+            <li><a href="/logout">Logout</a></li>
+          </ul>
+          {/user}
+        </nav>
+      </header>
+      <div id="view">
+        {+content/}
+      </div>
+      <footer>
+        Chat by <a href="http://www.richardsilence.com">Richard Silence</a>
+      </footer>
+    </div>
+    <script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="/js/chat.js" type="text/javascript"></script>
+  </body>
+</html>
