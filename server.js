@@ -20,8 +20,8 @@ var connections = [];
 var username = 'guest';
 
 
-var port = env.PORT || env.OPENSHIFT_NODEJS_PORT,
-    ip   = env.IP || env.OPENSHIFT_NODEJS_IP,
+var port = env.PORT || env.OPENSHIFT_NODEJS_PORT || '8080',
+    ip   = env.IP || env.OPENSHIFT_NODEJS_IP || '172.30.47.227',
     mongoURL = env.OPENSHIFT_MONGODB_DB_URL || env.MONGO_URL,
     mongoURLLabel = "";
 
