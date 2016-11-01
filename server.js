@@ -20,13 +20,13 @@ var connections = [];
 var username = 'guest';
 
 
-var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-    ipaddress   = process.env.IP   || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
-    mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL || 'localhost',
+var port = env.PORT || env.OPENSHIFT_NODEJS_PORT || 1337,
+    ip   = env.IP || env.OPENSHIFT_NODEJS_IP || '192.168.1.195',
+    mongoURL = env.OPENSHIFT_MONGODB_DB_URL || env.MONGO_URL || 'localhost',
     mongoURLLabel = "";
 
-if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
-  var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
+if (mongoURL == null && env.DATABASE_SERVICE_NAME) {
+  var mongoServiceName = env.DATABASE_SERVICE_NAME.toUpperCase(),
       mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
       mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
       mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
@@ -97,9 +97,14 @@ app.use(function(err, req, res, next){
   res.status(500).send('Something bad happened!');
 });
 
+
+app.set('port', port);
+app.set('ipaddress', ip);
+
 var server = require('http').createServer(app);
-server.listen( port, ipaddress, function() {
-    console.log((new Date()) + ' Server is listening on ' + ipaddress + ":" + port);
+server.listen(port,ip,function(e){
+  if(e) console.error(e);
+  else console.log((new Date()) + ' Server is listening on ' + ip + ":" + port);
 });
 
 var io = require('socket.io').listen(server);
