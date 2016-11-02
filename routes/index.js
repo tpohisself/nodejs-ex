@@ -6,10 +6,13 @@ var express = require('express')
 
   router.get("/", function(req, res){
     var username = '';
+    var role = '';
     if(req.user && req.user.username){
       username = req.user.username;
+      role = req.user.role;
     }else{
       username = 'guest';
+      role = 'guest';
     }
     // console.log('user is '+username);
     // console.log(req.user);
@@ -39,8 +42,8 @@ var express = require('express')
 
       var vm = {
         user: username,
-        chats:chats,
-        Role: req.user.role
+        chats: chats,
+        Role: role
       };
       res.render('chat',vm);
     });
