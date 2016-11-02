@@ -20,9 +20,9 @@ var connections = [];
 var username = 'guest';
 
 
-var port = env.PORT || env.OPENSHIFT_NODEJS_PORT || '8080',
-    ip   = env.IP || env.OPENSHIFT_NODEJS_IP || '172.30.118.17',
-    mongoURL = env.OPENSHIFT_MONGODB_DB_URL || env.MONGO_URL || '127.0.0.1',
+var port = env.OPENSHIFT_NODEJS_PORT || '8080',
+    ip   = env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
+    mongoURL = env.OPENSHIFT_MONGODB_DB_URL || '127.0.0.1',
     mongoURLLabel = "";
 
 if (mongoURL == null && env.DATABASE_SERVICE_NAME) {
@@ -96,10 +96,6 @@ app.use(function(err, req, res, next){
   console.error(err.stack);
   res.status(500).send('Something bad happened!');
 });
-
-
-app.set('port', port);
-app.set('ipaddress', ip);
 
 var server = require('http').createServer(app);
 server.listen(port,ip,function(e){
