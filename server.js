@@ -20,9 +20,9 @@ var connections = [];
 var username = 'guest';
 
 
-var port = env.PORT || env.OPENSHIFT_NODEJS_PORT || '8443',
-    ip   = env.IP || env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
-    mongoURL = env.OPENSHIFT_MONGODB_DB_URL || env.MONGO_URL,
+var port = env.PORT || env.OPENSHIFT_NODEJS_PORT || '8080',
+    ip   = env.IP || env.OPENSHIFT_NODEJS_IP || '172.30.118.17',
+    mongoURL = env.OPENSHIFT_MONGODB_DB_URL || env.MONGO_URL || '127.0.0.1',
     mongoURLLabel = "";
 
 if (mongoURL == null && env.DATABASE_SERVICE_NAME) {
