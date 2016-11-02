@@ -11,7 +11,7 @@ $(function(){
     if(data.msg && data.msg != null && data.msg != ''){
       var post = '<div class="post" id="'+data._id+'"><div class="row"><div class="cell"><span class="user">'+data.username+'</span></div><div class="cell large"><span class="ts">'+data.date+'</span><br><span class="msg">'+data.msg+'</span></div>';
       if(data.username == $username) post += '<div class="cell controls"><button class="deletePost" value="'+data._id+'"> X </button></div>';
-      else if($username == 'Hisself' || $username == 'Hisself2') post += '<div class="cell controls"><button class="masterDeletePost" value="'+data._id+'"> X </button></div>';
+      else if(data.role == 'admin') post += '<div class="cell controls"><button class="masterDeletePost" value="'+data._id+'"> X </button></div>';
       post += '</div></div>';
       $chat.append(post);
       $chat.scrollTop($chat.height() + 100000);

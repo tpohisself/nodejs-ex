@@ -87,8 +87,6 @@ passport.use(new LocalStrategy(function (username, password, done) {
             IPS: ips
           });
 
-          if(username == 'dune44') newAccount.role = 'admin';
-
           console.log('save new account...');
           console.log(newAccount);
 

@@ -119,7 +119,7 @@ io.sockets.on('connection',function(socket){
       data = data.trim();
       if(data && data != null && data != ''){
         var newPost = new chatData({
-          'User':user,
+          'User':user.id,
           'Verbiage':data,
           'Timestamp':ts
         });
@@ -132,7 +132,7 @@ io.sockets.on('connection',function(socket){
             // console.log('chatid: ');
             // console.log(chatSave._id);
             var date = ts.split(', ')[1] + ' CST';
-            io.sockets.emit('new message', {username:username,msg:data,date:date,_id:chatSave._id});
+            io.sockets.emit('new message', {username:username,msg:data,date:date,_id:chatSave._id,role:user.role});
           }
         });
       }
@@ -166,21 +166,12 @@ function checkUID(user,done){
     }else{
       // console.log('checkUID check');
       // console.log(accounts);
-      done(accounts[0]._id);
+      var account = {
+        id:accounts[0]._id,
+        role:accounts[0].role
+      }
+      done(account);
     }
   });
 }
-
 module.exports = app ;
-
-// 
-// function checkDuplicates(array){
-//   for(var i = 0; i < array.length; i++){
-//     for(var j=i+1;j<array.length;j++){
-//       if(array[i] == array[j]){
-//         array.splice(j,1);
-//       }
-//     }
-//   }
-//   return array;
-// }

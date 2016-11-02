@@ -12,9 +12,10 @@
         <nav>
           {?user}
           <ul>
-            <li>Welcome <span id="user">{user}</span></li>
+            <li>Welcome <span id="user">{user}</span> {@eq key=Role value="admin"} ({Role}) {/eq}</li>
             <li> &nbsp; </li>
-            <li id="logout"><a href="/account/logout">Logout</a></li>
+            <li id="logout"> <a href="/account/logout"> Logout </a> </li>
+            <li> <a href="http://patriotchat-podkichat.44fs.preview.openshiftapps.com/" target="_blank"> Popout </a> </li>
           </ul>
           {/user}
         </nav>

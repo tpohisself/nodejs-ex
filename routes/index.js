@@ -19,7 +19,7 @@ var express = require('express')
     .sort({'Timestamp':1}).exec(function(e,data){
       if(e) console.error(e);
       var chats =[];
-      if(data && data.length){
+      if(data && data.length >0){
         for(var i=0;i<data.length;i++){
           // console.log('data '+i)
           // console.log(data[i]);
@@ -28,8 +28,7 @@ var express = require('express')
               id: data[i]._id,
               username: data[i].User.username,
               Verbiage: data[i].Verbiage,
-              Timestamp: data[i].Timestamp.split(', ')[1] + ' CST',
-              Role: data[i].User.role
+              Timestamp: data[i].Timestamp.split(', ')[1] + ' CST'
             };
             chats.push(chat);
           }
@@ -40,7 +39,8 @@ var express = require('express')
 
       var vm = {
         user: username,
-        chats:chats
+        chats:chats,
+        Role: req.user.role
       };
       res.render('chat',vm);
     });
