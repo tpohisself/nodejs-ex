@@ -26,7 +26,7 @@ var express = require('express')
         for(var i=0;i<data.length;i++){
           // console.log('data '+i)
           // console.log(data[i]);
-          if(data[i].User.username && data[i].User.username != ''){
+          if(data[i].User.username && data[i].User.username != ''&& data[i].User.username != 'guest'){
             var chat = {
               id: data[i]._id,
               username: data[i].User.username,
