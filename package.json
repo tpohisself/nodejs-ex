@@ -1,7 +1,7 @@
 {
   "name": "podkichat",
-  "version": "0.0.1",
-  "description": "prs chat app",
+  "version": "0.0.2",
+  "description": "prs chat app using openshift nodejs 4 socket.io express 4 mongoose. If this code helps you with your project all the better, God Speed.",
   "main": "server.js",
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
@@ -31,16 +31,15 @@
   },
   "scripts": {
     "start": "node server.js",
-    "test": "IP=0.0.0.0 PORT=3030 mocha --timeout 5000 tests/*_test.js"
   },
   "repository": {
     "type": "git",
-    "url": "http://github.com/openshift/nodejs-ex.git"
+    "url": "https://github.com/tpohisself/nodejs-ex/"
   },
-  "author": "Steve Speicher <sspeiche@gmail.com>",
+  "author": "Richard Silence <webmaster@richardsilence.com>",
   "license": "CC-BY-1.0",
   "bugs": {
-    "url": "http://github.com/openshift/nodejs-ex/issues"
+    "url": "https://github.com/tpohisself/nodejs-ex/issues"
   },
-  "homepage": "http://github.com/openshift/nodejs-ex"
+  "homepage": "http://www.richardsilence.com"
 }

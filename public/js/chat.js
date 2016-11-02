@@ -20,7 +20,7 @@ $(function(){
   });
 
   socket.on('new login',function(data){
-    console.log('new login hit');
+    $('#users').html('');
     for(var i=0;i<data.length;i++){
       $('#users').append('<li>'+data[i]+'</li>');
     }
@@ -52,7 +52,7 @@ $(function(){
   }else{
     $('#loginForm').hide();
   }
-  console.log($('#user').html());
+  // console.log($('#user').html());
   init();
   login();
 });

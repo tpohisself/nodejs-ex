@@ -141,15 +141,12 @@ io.sockets.on('connection',function(socket){
 
   socket.on('send login',function(user){
     username = user;
-    console.log('send login hit');
+    // console.log('send login hit');
     if(users.indexOf(user) < 0){
-      console.log('adding user ' + user);
+      // console.log('adding user ' + user);
       users.push(user);
-    }else{
-      console.log('user should be ' + user)
-      console.log('logging users');
-      console.log(users);
     }
+    // users = checkDuplicates(users);
     io.sockets.emit('new login', users);
   });
 
@@ -175,3 +172,15 @@ function checkUID(user,done){
 }
 
 module.exports = app ;
+
+
+function checkDuplicates(array){
+  for(var i = 0; i < array.length; i++){
+    for(var j=i+1;j<array.length;j++){
+      if(array[i] == array[j]){
+        array.splice(j,1);
+      }
+    }
+  }
+  return array;
+}
