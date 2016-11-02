@@ -23,28 +23,14 @@ var username = 'guest';
 var port = env.OPENSHIFT_NODEJS_PORT || '8080',
     ip   = env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
     mongoURL = env.OPENSHIFT_MONGODB_DB_URL || '127.0.0.1',
-    mongoURLLabel = "";
+    mongoURLLabel = "",
+    mongoUser = MONGODB_USER,
+    mongoPort = MONGODB_PORT,
+    mongoPass = MONGODB_PASSWORD,
+    mongoName = MONGODB_DATABASE;
 
-if (mongoURL == null && env.DATABASE_SERVICE_NAME) {
-  var mongoServiceName = env.DATABASE_SERVICE_NAME.toUpperCase(),
-      mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
-      mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
-      mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
-      mongoPassword = process.env[mongoServiceName + '_PASSWORD']
-      mongoUser = process.env[mongoServiceName + '_USER'];
-
-  if (mongoHost && mongoPort && mongoDatabase) {
-    mongoURLLabel = mongoURL = 'mongodb://';
-    if (mongoUser && mongoPassword) {
-      mongoURL += mongoUser + ':' + mongoPassword + '@';
-    }
-    // Provide UI label that excludes user id and pw
-    mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
-    mongoURL += mongoHost + ':' +  mongoPort + '/' + mongoDatabase;
-
-  }
-}
-mongoose.connect(mongoURL);
+var connectionstring = 'mongodb://'mongoUser +':'+mongoPass+'@'+ mongoURL + ':' +  mongoPort + '/' + mongoName;
+mongoose.connect(connectionstring);
 
 fs.readdirSync(__dirname + "/models").forEach(function (filename) {
     if (~filename.indexOf(".js")) require(__dirname + "/models/"+ filename);

@@ -14,7 +14,7 @@
           <ul>
             <li>Welcome <span id="user">{user}</span></li>
             <li> &nbsp; </li>
-            <li><a href="/logout">Logout</a></li>
+            <li><a href="/account/logout">Logout</a></li>
           </ul>
           {/user}
         </nav>
