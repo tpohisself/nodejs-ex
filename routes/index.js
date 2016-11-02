@@ -16,10 +16,10 @@ var express = require('express')
     }
     // console.log('user is '+username);
     // console.log(req.user);
-    var date = moment().subtract(3, 'hours').format('L');
-
-    chatData.find({'Deleted':false,'Timestamp':{"$gte": date}}).populate({ path : "User", select:'username role'})
-    .sort({'Timestamp':1}).exec(function(e,data){
+    var date = moment().subtract(3, 'hours').format('MMMM Do YYYY, h:mm:ss a');
+    console.log('date ' +date);
+    chatData.find({'Deleted':false,'Timestamp':{'$gte': date}}).populate({ path : "User", select:'username role'})
+    .sort({'Timestamp':1}).limit(400).exec(function(e,data){
       if(e) console.error(e);
       var chats =[];
       if(data && data.length >0){

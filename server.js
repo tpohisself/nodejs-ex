@@ -112,7 +112,7 @@ io.sockets.on('connection',function(socket){
     io.sockets.emit('new login', users);
   });
 
-  socket.on('send message',function(username,data){
+  socket.on('send message',function(Username,data){
     var ts = moment().format('MMMM Do YYYY, h:mm:ss a'); // October 23rd 2016, 2:17:30 pm
     checkUID(username,function(user){
       // console.log('.'+uid+'.');
@@ -132,7 +132,7 @@ io.sockets.on('connection',function(socket){
             // console.log('chatid: ');
             // console.log(chatSave._id);
             var date = ts.split(', ')[1] + ' CST';
-            io.sockets.emit('new message', {username:username,msg:data,date:date,_id:chatSave._id,role:user.role});
+            io.sockets.emit('new message', {username:Username,msg:data,date:date,_id:chatSave._id,role:user.role});
           }
         });
       }
