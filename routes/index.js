@@ -11,20 +11,22 @@ var express = require('express')
     }else{
       username = 'guest';
     }
-    console.log('user is '+username);
+    // console.log('user is '+username);
     // console.log(req.user);
-    var date = moment().subtract(3, 'hours').format('L'); // 10/20/2016
+    var date = moment().subtract(3, 'hours').format('L');
 
-    chatData.find({'Deleted':false,'Timestamp':{"$gte": date}},function(data){
+    chatData.find({'Deleted':false,'Timestamp':{"$gte": date}}).populate({ path : "User", select:'username'})
+    .sort({'Timestamp':1}).exec(function(e,data){
+      if(e) console.error(e);
       var chats =[];
       if(data && data.length){
         for(var i=0;i<data.length;i++){
           // console.log('data '+i)
           // console.log(data[i]);
-          if(data[i].Username && data[i].Username != ''){
+          if(data[i].User.username && data[i].User.username != ''){
             var chat = {
               id: data[i]._id,
-              username: data[i].Username,
+              username: data[i].User.username,
               Verbiage: data[i].Verbiage,
               Timestamp: data[i].Timestamp.split(', ')[1] + ' CST'
             };
@@ -34,6 +36,7 @@ var express = require('express')
       }else{
         console.log('no chat posts found');
       }
+
       var vm = {
         user: username,
         chats:chats

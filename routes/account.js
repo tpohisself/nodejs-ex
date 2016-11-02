@@ -12,8 +12,8 @@ passport.use(new LocalStrategy(function (username, password, done) {
         user.verifyPassword(password, function (err, isMatch) {
             if(err) return done(err);
             if(isMatch){
-              console.log('user validated. ' );
-              console.log(user);
+              // console.log('user validated. ' );
+              // console.log(user);
               return done(null, user);
             }else{
               console.log('user validation failed. ');
@@ -43,11 +43,11 @@ passport.use(new LocalStrategy(function (username, password, done) {
         if (!user) {
             req.session.messages = [info.message];
             console.log(info.message);
-            return res.redirect('/');
+            res.json({msg:info.message});
         }
         req.logIn(user, function (err) {
             if (err) { return next(err); }
-            return res.redirect('/');
+            res.json({msg:2,username:user.username});
         });
     })(req, res, next);
   });
@@ -101,7 +101,7 @@ passport.use(new LocalStrategy(function (username, password, done) {
               //   res.json({msg: 'success'});
               // else
               //   res.json({msg: 'unknown error'});
-              console.log(accountSave);
+              // console.log(accountSave);
             }
           });
         }

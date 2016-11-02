@@ -24,12 +24,20 @@ var port = env.OPENSHIFT_NODEJS_PORT || '8080',
     ip   = env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
     mongoURL = env.OPENSHIFT_MONGODB_DB_URL || '127.0.0.1',
     mongoURLLabel = "",
-    mongoUser = env.MONGODB_USER || '27017',
-    mongoPort = env.MONGODB_PORT || '',
-    mongoPass = env.MONGODB_PASSWORD || '',
-    mongoName = env.MONGODB_DATABASE || 'podkichat';
+    mongoUser = '27017',
+    mongoPort = '',
+    mongoPass = '',
+    mongoName ='podkichat',
+    connectionstring = 'mongodb://'+ mongoURL + ':' +  mongoPort + '/' + mongoName;
 
-var connectionstring = 'mongodb://'+mongoUser +':'+mongoPass+'@'+ mongoURL + ':' +  mongoPort + '/' + mongoName;
+if(env.MONGODB_USER){
+  mongoUser = env.MONGODB_USER,
+  mongoPort = env.MONGODB_PORT,
+  mongoPass = env.MONGODB_PASSWORD,
+  mongoName = env.MONGODB_DATABASE,
+  connectionstring = 'mongodb://'+mongoUser +':'+mongoPass+'@'+ mongoURL + ':' +  mongoPort + '/' + mongoName;
+}
+
 mongoose.connect(connectionstring);
 
 fs.readdirSync(__dirname + "/models").forEach(function (filename) {
@@ -99,7 +107,9 @@ io.sockets.on('connection',function(socket){
   socket.on('disconnect',function(data){
     connections.splice(connections.indexOf(socket),1);
     users.splice(users.indexOf(username),1);
+    username = 'guest';
     console.log('Disconnected: %s sockets connected', connections.length);
+    io.sockets.emit('new login', users);
   });
 
   socket.on('send message',function(username,data){
@@ -119,8 +129,8 @@ io.sockets.on('connection',function(socket){
             console.error(e);
           }else{
             // console.log('chat inserted as:');
-            console.log('chatid: ');
-            console.log(chatSave._id);
+            // console.log('chatid: ');
+            // console.log(chatSave._id);
             var date = ts.split(', ')[1] + ' CST';
             io.sockets.emit('new message', {username:username,msg:data,date:date,_id:chatSave._id});
           }
@@ -131,7 +141,15 @@ io.sockets.on('connection',function(socket){
 
   socket.on('send login',function(user){
     username = user;
-    users.push(user)
+    console.log('send login hit');
+    if(users.indexOf(user) < 0){
+      console.log('adding user ' + user);
+      users.push(user);
+    }else{
+      console.log('user should be ' + user)
+      console.log('logging users');
+      console.log(users);
+    }
     io.sockets.emit('new login', users);
   });
 
@@ -149,8 +167,8 @@ function checkUID(user,done){
       console.log('Query Account Failed: ');
       console.error(e);
     }else{
-      console.log('checkUID check');
-      console.log(accounts);
+      // console.log('checkUID check');
+      // console.log(accounts);
       done(accounts[0]._id);
     }
   });

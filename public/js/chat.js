@@ -2,9 +2,11 @@ var $username = 'guest'
 ,socket = io.connect()
 ,$chat = $('#chat')
 ,$users = []
-,x = 0;
+,x = 0
+,loggedin = false;
 
 $(function(){
+  $('#logout').hide();
   socket.on('new message',function(data){
     if(data.msg && data.msg != null && data.msg != ''){
       var post = '<div class="post" id="'+data._id+'"><div class="row"><div class="cell"><span class="user">'+data.username+'</span></div><div class="cell large"><span class="ts">'+data.date+'</span><br><span class="msg">'+data.msg+'</span></div>';
@@ -18,8 +20,20 @@ $(function(){
   });
 
   socket.on('new login',function(data){
+    console.log('new login hit');
     for(var i=0;i<data.length;i++){
       $('#users').append('<li>'+data[i]+'</li>');
+    }
+    if($username != 'guest' && loggedin && data.indexOf($username) < 0){
+      $username = 'guest';
+      loggedin = false;
+      $('#user').html($username);
+      init();
+    }else if($username != 'guest' && $username != $('#user').html() && data.indexOf($username) >-1){
+      $('#user').html($username);
+      loggedin = true;
+      $('#logout').show();
+      init();
     }
   });
 
@@ -44,7 +58,16 @@ $(function(){
 });
 
 function init(){
-$chat.scrollTop($chat.height() + 100000);
+
+  if(!loggedin && $username != 'guest'){
+    $('#loginForm').hide();
+    $('#msgForm').show();
+    socket.emit('send login', $username);
+    loggedin = true;
+    $('#logout').show();
+  }
+
+  $chat.scrollTop($chat.height() + 100000);
   $('#msgForm').submit(function(e){
     e.preventDefault();
     if(x==0) x=1;
@@ -105,13 +128,17 @@ function login(){
   $('#registerForm').submit(function(e){
     e.preventDefault();
     if(x==0) x=1;
-    var data = {
-      username: $('#regUsername').val(),
-      password:$('#regPwd').val(),
-      repwd:$('#repwd').val(),
-      email:$('#regEmail').val()
-    };
-    hijack(data,'/account/register');
+    if($('#regPwd').val() == $('#repwd').val()){
+      var data = {
+        username: $('#regUsername').val(),
+        password:$('#regPwd').val(),
+        repwd:$('#repwd').val(),
+        email:$('#regEmail').val()
+      };
+      hijack(data,'/account/register');
+    }else{
+      alert("Passwords don't match, please try again");
+    }
   });
   function hijack(data,url){
     if(x==1){
