@@ -24,10 +24,10 @@ var port = env.OPENSHIFT_NODEJS_PORT || '8080',
     ip   = env.OPENSHIFT_NODEJS_IP || '127.0.0.1',
     mongoURL = env.OPENSHIFT_MONGODB_DB_URL || '127.0.0.1',
     mongoURLLabel = "",
-    mongoUser = MONGODB_USER,
-    mongoPort = MONGODB_PORT,
-    mongoPass = MONGODB_PASSWORD,
-    mongoName = MONGODB_DATABASE;
+    mongoUser = env.MONGODB_USER || '27017',
+    mongoPort = env.MONGODB_PORT || '',
+    mongoPass = env.MONGODB_PASSWORD || '',
+    mongoName = env.MONGODB_DATABASE || 'podkichat';
 
 var connectionstring = 'mongodb://'+mongoUser +':'+mongoPass+'@'+ mongoURL + ':' +  mongoPort + '/' + mongoName;
 mongoose.connect(connectionstring);
