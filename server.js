@@ -29,7 +29,7 @@ var port = env.OPENSHIFT_NODEJS_PORT || '8080',
     mongoPass = MONGODB_PASSWORD,
     mongoName = MONGODB_DATABASE;
 
-var connectionstring = 'mongodb://'mongoUser +':'+mongoPass+'@'+ mongoURL + ':' +  mongoPort + '/' + mongoName;
+var connectionstring = 'mongodb://'+mongoUser +':'+mongoPass+'@'+ mongoURL + ':' +  mongoPort + '/' + mongoName;
 mongoose.connect(connectionstring);
 
 fs.readdirSync(__dirname + "/models").forEach(function (filename) {
