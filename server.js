@@ -178,7 +178,11 @@ function checkUID(user,done){
         }
         done(account);
       }else{
-        done(null);
+        var account = {
+          id:null,
+          role:'guest'
+        }
+        done(account);
       }
     }
   });
