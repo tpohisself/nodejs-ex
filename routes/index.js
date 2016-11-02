@@ -15,7 +15,7 @@ var express = require('express')
     // console.log(req.user);
     var date = moment().subtract(3, 'hours').format('L');
 
-    chatData.find({'Deleted':false,'Timestamp':{"$gte": date}}).populate({ path : "User", select:'username'})
+    chatData.find({'Deleted':false,'Timestamp':{"$gte": date}}).populate({ path : "User", select:'username role'})
     .sort({'Timestamp':1}).exec(function(e,data){
       if(e) console.error(e);
       var chats =[];
@@ -28,7 +28,8 @@ var express = require('express')
               id: data[i]._id,
               username: data[i].User.username,
               Verbiage: data[i].Verbiage,
-              Timestamp: data[i].Timestamp.split(', ')[1] + ' CST'
+              Timestamp: data[i].Timestamp.split(', ')[1] + ' CST',
+              Role: data[i].User.role
             };
             chats.push(chat);
           }

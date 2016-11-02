@@ -16,10 +16,12 @@
           <button class="deletePost" value="{id}"> X </button>
         </div>
       {/eq}
-      {@eq key=user value="Hisself"}
+      {@eq key=role value="admin"}
+        {@ne key=user value="TPO"}
         <div class="cell controls">
           <button class="masterDeletePost" value="{id}"> X </button>
         </div>
+        {/ne}
       {/eq}
     </div>
   </div>
