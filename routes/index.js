@@ -16,7 +16,7 @@ var express = require('express')
     }
     // console.log('user is '+username);
     // console.log(req.user);
-    var date = moment().subtract(3, 'hours').format('MMMM Do YYYY, h:mm:ss a');
+    var date = moment().subtract(3, 'hours').format('MMMM Do YYYY, HH:mm:ss a');
     console.log('date ' +date);
     chatData.find({'Deleted':false}).populate({ path : "User", select:'username role'})
     .sort({'Timestamp':1}).limit(400).exec(function(e,data){

@@ -114,7 +114,7 @@ io.sockets.on('connection',function(socket){
   });
 
   socket.on('send message',function(username,data){
-    var ts = moment().format('MMMM Do YYYY, h:mm:ss a'); // October 23rd 2016, 2:17:30 pm
+    var ts = moment().subtract(1, 'hours').format('MMMM Do YYYY, HH:mm:ss a'); // October 23rd 2016, 2:17:30 pm
     checkUID(username,function(user){
       // console.log('.'+uid+'.');
       data = data.trim();
@@ -171,11 +171,15 @@ function checkUID(user,done){
     }else{
       // console.log('checkUID check');
       // console.log(accounts);
-      var account = {
-        id:accounts[0]._id,
-        role:accounts[0].role
+      if(accounts.length > 0){
+        var account = {
+          id:accounts[0]._id,
+          role:accounts[0].role
+        }
+        done(account);
+      }else{
+        done(null);
       }
-      done(account);
     }
   });
 }
