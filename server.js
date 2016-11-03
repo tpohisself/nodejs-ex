@@ -113,7 +113,8 @@ io.sockets.on('connection',function(socket){
     io.sockets.emit('new login', users);
   });
 
-  socket.on('send message',function(username,data){
+  socket.on('send message',function(user,data){
+    if(user != 'guest'){
     var ts = moment().subtract(1, 'hours').format('MMMM Do YYYY, HH:mm:ss a'); // October 23rd 2016, 2:17:30 pm
     checkUID(username,function(user){
       // console.log('.'+uid+'.');
@@ -138,6 +139,7 @@ io.sockets.on('connection',function(socket){
         });
       }
     });
+    }
   });
 
   socket.on('send login',function(user){
